@@ -1,129 +1,41 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jtames <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 19:47:02 by jtames            #+#    #+#             */
-/*   Updated: 2024/10/02 19:47:04 by jtames           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-
-int	w_count(const char *s, char c)
+int	main()
 {
-	int	i;
-	int	count;
+	const char	s[] = "hola me llamo pepe";
+	char		c = ' ';
+	char		matrix[5][6];
+	int			i;
+	int			j;
+	int			k;
+	int			h;
+	int			last_occ;
 
-	if (c == '\0')
-		return (1);
 	i = 0;
-	while (s[i] == c)
-		i++;
-	count = 0;
-	if (s[i] != '\0')
-		count = 1;
+	j = 0;
+	last_occ = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-			count++;
+		if (s[i] == c)
+		{
+			h = 0;
+			k = last_occ;
+			while (k < i)
+			{
+				matrix[j][h] = (char)s[k];
+				h++;
+				k++;
+			}
+			matrix[j][k] = '\0';
+			last_occ = i;
+			j++;
+			i++;
+		}
 		i++;
 	}
-	printf("words: %d\n", count);
-	return (count);
-}
-
-int	w_len(const char *s, char c, int j)
-{
-	int	count;
-
-	count = 0;
-	if (s[0] == '\0')
-		return (1);
-	while (s[j] == c)
-		j++;
-	while (s[j] != c && s[j] != '\0')
-	{
-		count++;
-		j++;
-	}
-	printf("length: %d\n", count);
-	return (count);
-}
-
-int	w_start(const char *s, char c, int j, int word_l)
-{
-	j = j + word_l;
-	if (s[j] == '\0')
-		return (j);
-	while (s[j] == c)
-		j++;
-	printf("start: %d\n", j);
-	return (j);
-}
-
-char	**matrix_errors(char **matrix, int i, int mark)
-{
-	if (mark == 1)
-	{
-		i = 0;
-		matrix[i] = NULL;
-		matrix[i + 1] = NULL;
-		return (matrix);
-	}
-	else
-	{
-		while (i-- >= 0)
-			free(matrix[i]);
-		return (matrix);
-	}
-}
-
-char	**ft_split(const char *s, char c)
-{
-	int		word_c;
-	int		word_l;
-	int		i;
-	int		j;
-	char	**matrix;
-
-	word_c = w_count(s, c);
-	matrix = malloc(sizeof(char *) * (word_c + 1));
-	if (!matrix || !s)
-		return (NULL);
-	i = -1;
-	j = 0;
-	word_l = 0;
-	while (++i < word_c)
-	{
-		j = w_start(s, c, j, word_l);
-		word_l = w_len(s, c, j);
-		if (s[0] == '\0')
-			return (matrix_errors(matrix, i, 1));
-		matrix[i] = ft_substr(s, j, word_l);
-		if (!matrix[i])
-			return (matrix_errors(matrix, i, 2));
-	}
-	matrix[i] = NULL;
-	return (matrix);
-}
-
-int	main(void)
-{
-	const char	s[] = "hola";
-	char		c = ' ';
-	char		**matrix = ft_split(s, c);
-	int			i = 0;
-
-	while (matrix)
-	{
-		printf("%s\n", matrix[i]);
-		i++;
-	}
-	return (0);
+	j = -1;
+	while (++j < 5)
+		printf("%s\n", matrix[j]);
 }
