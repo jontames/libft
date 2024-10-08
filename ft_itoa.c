@@ -10,88 +10,63 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int	nlen(long n)
+char	*ft_convert(char *a, int i, int j, int n)
 {
-	int	i;
-
-	i = 0;
 	if (n < 0)
 	{
-		n = n * -1;
-		i++;
-	}
-	if (n == 0)
-		i = 1;
-	while (n != 0)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
-}
-
-char	*ret(int len, long nb, char *s)
-{
-	if (nb == 0)
-		s[0] = '0';
-	else if (nb == 42)
-	{
-		s[0] = '4';
-		s[1] = '2';
+		j = n * -1;
+		while (j != 0)
+		{
+			a[i] = (j % 10) + '0';
+			i--;
+			j /= 10;
+		}
 	}
 	else
 	{
-		while (len >= 0)
+		j = n;
+		while (j != 0)
 		{
-			if (s[len] == '-')
-				break ;
-			s[len] = (nb % 10) + '0';
-			len--;
-			nb = nb / 10;
+			a[i - 1] = (j % 10) + '0';
+			i--;
+			j /= 10;
 		}
 	}
-	return (s);
+	return (a);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*s;
-	int		len;
-	long	nb;
-
-	len = nlen(n);
-	s = malloc((len + 1) * sizeof(char));
-	nb = n;
-	if (s == NULL)
-		return (NULL);
-	if (nb < 0)
-	{
-		s[0] = '-';
-		nb = nb * -1;
-	}
-	s[len] = '\0';
-	len--;
-	return (ret(len, nb, s));
-}
-
-int	main(void)
-{
 	int		i;
-	int		n;
+	int		j;
+	char	*a;
 
+	if (n == -2147483648)
+		return ("-2147483648");
 	i = 0;
-	n = 0;
-	while (n != 0)
+	j = n;
+	while (j != 0)
 	{
-		n /= 10;
+		j /= 10;
 		i++;
 	}
-	printf("%d\n", i);
-	/* char *str = ft_itoa(42);
-	printf("%s\n", ft_itoa(42));
-	printf("%c %c %c\n", str[0], str[1], str[2]);
-	return (0); */
+	if (n < 0)
+	{
+		a = malloc(i + 2);
+		a[0] = '-';
+		a[i] = '\0';
+	}
+	else
+	{
+		a = malloc(i + 1);
+		a[i] = '\0';
+	}
+	return (ft_convert(a, i, j, n));
 }
+
+/* int	main(void)
+{
+	printf("%s\n", ft_itoa(-2147483648));
+} */

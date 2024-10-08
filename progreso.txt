@@ -25,10 +25,10 @@ substr 1
 strjoin 1
 strtrim 1
 split 
-itoa 
+itoa 1
 strmapi 
 striteri 
-putchar_fd 
-putstr_fd 
-putendl_fd 
-putnbr_fd 
+putchar_fd 1
+putstr_fd 1
+putendl_fd 1
+putnbr_fd 1

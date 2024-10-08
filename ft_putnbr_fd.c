@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtames <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/20 16:42:30 by jtames            #+#    #+#             */
-/*   Updated: 2024/09/20 16:42:34 by jtames           ###   ########.fr       */
+/*   Created: 2024/10/03 17:17:28 by jtames            #+#    #+#             */
+/*   Updated: 2024/10/03 17:17:31 by jtames           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		i;
-	int		pos;
-
-	i = 0;
-	pos = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			pos = i;
-		i++;
-	}
-	if (s[i] == c)
-		return ((char *)&s[i]);
-	else if (pos != 0)
-		return ((char *)&s[pos]);
-	return (NULL);
+	ft_putstr_fd(ft_itoa(n), fd);
 }
 
 /* int main()
 {
-	char    a[] = "Hola alba";
-
-	printf("%p\n", ft_strrchr(a, '\0'));
-	printf("%p\n", strrchr(a, '\0'));
-	printf("%p\n", &a[9]);
+	int     a = 5153;
+	int     fd;
+	
+	write(1, (&a - '0'), 4);
+	fd = open("prueba.txt", O_WRONLY);
+	ft_putnbr_fd(a, fd);
+	close(fd);
 } */

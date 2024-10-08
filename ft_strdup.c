@@ -12,33 +12,33 @@
 
 #include "libft.h"
 
-char    *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-    size_t      len;
-    char        *dup;
+	size_t		len;
+	char		*dup;
 
-    len = ft_strlen(s);
-    dup = (char *)malloc(len + 1);
-    if (dup == NULL)
-        return NULL;
-    ft_memcpy(dup, s, ft_strlen(s));
-    dup[ft_strlen(s)] = '\0';
-    return dup;
+	len = ft_strlen(s);
+	dup = (char *)malloc(len + 1);
+	if (dup == NULL)
+		return (NULL);
+	ft_memcpy(dup, s, ft_strlen(s));
+	dup[ft_strlen(s)] = '\0';
+	return (dup);
 }
 
-int main()
+/* int main()
 {
-    const char  *original = "";
-    char        *copy;
+	const char  *original = "";
+	char        *copy;
 
-    copy = ft_strdup(original);
-    if (copy == NULL) {
-        printf("Error al reservar memoria\n");
-        return 1;
-    }
+	copy = ft_strdup(original);
+	if (copy == NULL) {
+		printf("Error al reservar memoria\n");
+		return 1;
+	}
 
-    printf("Copia: %s\n", copy);
+	printf("Copia: %s\n", copy);
 
-    free(copy);
-    return 0;
-}
+	free(copy);
+	return 0;
+} */

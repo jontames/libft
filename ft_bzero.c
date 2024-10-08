@@ -12,26 +12,26 @@
 
 #include "libft.h"
 
-void    ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-    size_t     i;
-    unsigned char   *ptr;
+	size_t			i;
+	unsigned char	*ptr;
 
-    i = 0;
-    ptr = (unsigned char *)s;
-    while (i < n)
-        ptr[i++] = '\0';
+	i = 0;
+	ptr = (unsigned char *)s;
+	while (i < n)
+		ptr[i++] = '\0';
 }
 
-int main()
+/* int main()
 {
-    char    a[] = "Hola amigos";
-    char    b[] = "Hola mi gente";
+	char    a[] = "Hola amigos";
+	char    b[] = "Hola mi gente";
 
-    printf("%s\n", a);
-    ft_bzero(a, 4);
-    printf("%c\n", a[2]);
-    printf("%s\n", b);
-    bzero(b, 4);
-    printf("%c\n", b[2]);
-}
+	printf("%s\n", a);
+	ft_bzero(a, 4);
+	printf("%c\n", a[2]);
+	printf("%s\n", b);
+	bzero(b, 4);
+	printf("%c\n", b[2]);
+} */

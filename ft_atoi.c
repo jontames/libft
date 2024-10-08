@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int		i;
 	int		temp;
@@ -24,8 +24,8 @@ int ft_atoi(const char *nptr)
 	while (nptr[i] != '\0')
 	{
 		if ((nptr[i] == '+' || nptr[i] == '-') && (nptr[i + 1] == '+'
-			|| nptr[i + 1] == '-'))
-			return 0;
+				|| nptr[i + 1] == '-'))
+			return (0);
 		else if (nptr[i] == ' ' || nptr[i] == '+')
 			i++;
 		else if (nptr[i] == '-')
@@ -41,8 +41,8 @@ int ft_atoi(const char *nptr)
 	return (temp * minus_check);
 }
 
-int main()
+/* int main()
 {
 	printf("%d\n", ft_atoi("  12a34"));
 	printf("%d\n", atoi("  12a34"));
-}
+} */
