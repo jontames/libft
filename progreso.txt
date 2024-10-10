@@ -9,26 +9,26 @@ bzero 1
 memcpy 1
 memmove 1
 strlcpy 1
-strlcat 1
+strlcat 
 toupper 1
 tolower 1
 strchr 1
-strrchr 1 (esta bien lo que tengo pero si meto un nulo en medio, no funciona bien. Hay que volver a hacerlo empezando desde el final)
+strrchr 1
 strncmp 1
 memchr 1
 memcmp 1
-atoi 1
-strnstr 1
-calloc 1
+atoi 
+strnstr 
+calloc 
 strdup 1
-substr 1
-strjoin 1
-strtrim 1
-split 
-itoa 1
-strmapi 
-striteri 
-putchar_fd 1
-putstr_fd 1
-putendl_fd 1
-putnbr_fd 1
+substr 
+strjoin 
+strtrim 
+split (falta hacer)
+itoa 
+strmapi (falta hacer)
+striteri (falta hacer)
+putchar_fd 
+putstr_fd 
+putendl_fd 
+putnbr_fd 

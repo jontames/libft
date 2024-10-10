@@ -23,7 +23,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	i = 0;
 	if (n == 0)
 		return (0);
-	while ((*s1_ptr || *s2_ptr) && (i < n))
+	while (i < n)
 	{
 		if (s1_ptr[i] != s2_ptr[i])
 			return (s1_ptr[i] - s2_ptr[i]);
@@ -34,11 +34,11 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 
 /* int main()
 {
-	char    a[] = "";
-	char    b[] = "";
-	char    c[] = "";
-	char    d[] = "";
+	char s[] = {-128, 0, 127, 0};
+	char sCpy[] = {-128, 0, 127, 0};
+	char s2[] = {0, 0, 127, 0};
+	char s3[] = {0, 0, 42, 0};
 
-	printf("%d\n", ft_memcmp(a, b, 3));
-	printf("%d\n", memcmp(c, d, 3));
+	printf("%d\n", ft_memcmp(s2, s3, 4));
+	printf("%d\n", memcmp(s2, s3, 4));
 } */

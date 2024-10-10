@@ -15,20 +15,15 @@
 char	*ft_strrchr(const char *s, int c)
 {
 	int		i;
-	int		pos;
+	char	cc;
 
-	i = 0;
-	pos = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			pos = i;
-		i++;
-	}
-	if (s[i] == c)
+	i = ft_strlen(s);
+	cc = (const char)c;
+	while (i >= 0)
+		if (s[i--] == cc)
+			return ((char *)&s[i + 1]);
+	if (s[i] == cc)
 		return ((char *)&s[i]);
-	else if (pos != 0)
-		return ((char *)&s[pos]);
 	return (NULL);
 }
 
@@ -38,5 +33,5 @@ char	*ft_strrchr(const char *s, int c)
 
 	printf("%p\n", ft_strrchr(a, '\0'));
 	printf("%p\n", strrchr(a, '\0'));
-	printf("%p\n", &a[9]);
+	printf("%c\n", a[8]);
 } */
