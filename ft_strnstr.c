@@ -16,34 +16,33 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t		i;
 	size_t		j;
+	size_t		k;
 
 	i = 0;
 	j = 0;
 	if (little[0] == '\0')
 		return ((char *)big);
-	while (big[i] != '\0' && i < len)
+	while (big[i] && i < len)
 	{
-		if (big[i] == little[j] && j < ft_strlen(little))
+		k = i;
+		while ((big[k] == little[j]) && (j < ft_strlen(little)) && (k < len))
 		{
 			if (j == (ft_strlen(little) - 1))
-				return ((char *)&big[i - ft_strlen(little) + 1]);
-			i++;
+				return ((char *)&big[k - ft_strlen(little) + 1]);
+			k++;
 			j++;
 		}
-		else
-		{
-			j = 0;
-			i++;
-		}
+		j = 0;
+		i++;
 	}
 	return (NULL);
 }
 
 /* int main(void)
 {
-	char    a[] = "Hola buenos dias";
-	char    b[] = "";
+	char haystack[30] = "aaabcabcd";
+ 	char needle[10] = "aabc";
 
-	printf("%s\n", ft_strnstr(a, b, 11));
+	printf("%p\n", ft_strnstr(haystack, "cd", 8));
 	return 0;
 } */

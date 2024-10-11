@@ -9,7 +9,7 @@ bzero 1
 memcpy 1
 memmove 1
 strlcpy 1
-strlcat 
+strlcat 1
 toupper 1
 tolower 1
 strchr 1
@@ -17,18 +17,18 @@ strrchr 1
 strncmp 1
 memchr 1
 memcmp 1
-atoi 
-strnstr 
+atoi 1
+strnstr 1
 calloc 
 strdup 1
 substr 
-strjoin 
+strjoin (revisar pero parece que bien)
 strtrim 
 split (falta hacer)
 itoa 
 strmapi (falta hacer)
 striteri (falta hacer)
-putchar_fd 
-putstr_fd 
-putendl_fd 
+putchar_fd 1
+putstr_fd 1
+putendl_fd 1
 putnbr_fd 
