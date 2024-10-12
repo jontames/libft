@@ -16,14 +16,18 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub_s;
 	size_t	i;
+	size_t	rest;
 
 	if (start >= ft_strlen(s))
-		return ("");
-	sub_s = malloc(sizeof(char) * (len + 1));
+		return (ft_strdup(""));
+	rest = ft_strlen(s) - len;
+	if (len >= ft_strlen(s))
+		rest = 0;
+	sub_s = malloc(ft_strlen(s) - rest + 1);
 	if (sub_s == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while ((i < len) && (s[start] != '\0'))
 		sub_s[i++] = s[start++];
 	sub_s[i] = '\0';
 	return (sub_s);
@@ -31,8 +35,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 /* int	main()
 {
-	printf("JON: %p\n", ft_substr("ABCDEF", 9, 10));
-	printf("JON: %s\n", ft_substr("ABCDEF", 9, 10));
-	printf("NOAH: %p\n", ft_substr1("ABCDEF", 9, 10));
-	printf("NOAH: %s\n", ft_substr1("ABCDEF", 9, 10));
+	char	*str = strdup("0123456789");
+	char	*s = ft_substr(str, 9, 10);
+	size_t	b;
+
+	b = ft_strlen(s) + 1;
+	printf("%zu\n", b);
+	printf("%s\n", s);
+	free(str);
+	free(s);
 } */

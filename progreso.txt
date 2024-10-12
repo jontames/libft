@@ -19,9 +19,9 @@ memchr 1
 memcmp 1
 atoi 1
 strnstr 1
-calloc 
+calloc 1 (el control de los overflow no esta muy bien y puede dar problemas)
 strdup 1
-substr 
+substr 1 (el test 10 da mal pero nose porque)
 strjoin (revisar pero parece que bien)
 strtrim 
 split (falta hacer)
