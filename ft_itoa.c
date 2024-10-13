@@ -37,14 +37,41 @@ char	*ft_convert(char *a, int i, int j, int n)
 	return (a);
 }
 
+char	*ft_nbrnegative(int n)
+{
+	char		*a;
+	int			i;
+	long int	j;
+
+	if (n == 0)
+	{
+		a = malloc(2);
+		a[0] = '0';
+		a[1] = '\0';
+		return (a);
+	}
+	a = malloc(12);
+	a[0] = '-';
+	a[11] = '\0';
+	i = 10;
+	j = 2147483648;
+	while (j != 0)
+	{
+		a[i] = (j % 10) + '0';
+		i--;
+		j /= 10;
+	}
+	return (a);
+}
+
 char	*ft_itoa(int n)
 {
 	int		i;
 	int		j;
 	char	*a;
 
-	if (n == -2147483648)
-		return ("-2147483648");
+	if (n == -2147483648 || n == 0)
+		return (ft_nbrnegative(n));
 	i = 0;
 	j = n;
 	while (j != 0)
@@ -56,7 +83,7 @@ char	*ft_itoa(int n)
 	{
 		a = malloc(i + 2);
 		a[0] = '-';
-		a[i] = '\0';
+		a[i + 1] = '\0';
 	}
 	else
 	{
@@ -68,5 +95,5 @@ char	*ft_itoa(int n)
 
 /* int	main(void)
 {
-	printf("%s\n", ft_itoa(-2147483648));
+	printf("%s\n", ft_itoa(0));
 } */

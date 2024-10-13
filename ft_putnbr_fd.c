@@ -19,10 +19,9 @@ void	ft_putnbr_fd(int n, int fd)
 
 /* int main()
 {
-	int     a = 5153;
+	int     a = 2147483647;
 	int     fd;
 	
-	write(1, (&a - '0'), 4);
 	fd = open("prueba.txt", O_WRONLY);
 	ft_putnbr_fd(a, fd);
 	close(fd);
