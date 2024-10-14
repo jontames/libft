@@ -24,7 +24,7 @@ strdup 1
 substr 1 (el test 10 da mal pero nose porque)
 strjoin (revisar pero parece que bien)
 strtrim 1
-split (falta hacer)
+split (casi pero no)
 itoa 1
 strmapi (falta hacer)
 striteri (falta hacer)

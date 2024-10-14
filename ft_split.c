@@ -12,115 +12,109 @@
 
 #include "libft.h"
 
-int	w_count(const char *s, char c)
+int	wcount(char const *s, int *c_positions)
 {
-	int	i;
-	int	count;
-
-	if (c == '\0')
-		return (1);
-	i = 0;
-	while (s[i] == c)
-		i++;
-	count = 0;
-	if (s[i] != '\0')
-		count = 1;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-			count++;
-		i++;
-	}
-	printf("words: %d\n", count);
-	return (count);
-}
-
-int	w_len(const char *s, char c, int j)
-{
-	int	count;
-
-	count = 0;
-	if (s[0] == '\0')
-		return (1);
-	while (s[j] == c)
-		j++;
-	while (s[j] != c && s[j] != '\0')
-	{
-		count++;
-		j++;
-	}
-	printf("length: %d\n", count);
-	return (count);
-}
-
-int	w_start(const char *s, char c, int j, int word_l)
-{
-	j = j + word_l;
-	if (s[j] == '\0')
-		return (j);
-	while (s[j] == c)
-		j++;
-	printf("start: %d\n", j);
-	return (j);
-}
-
-char	**matrix_errors(char **matrix, int i, int mark)
-{
-	if (mark == 1)
-	{
-		i = 0;
-		matrix[i] = NULL;
-		matrix[i + 1] = NULL;
-		return (matrix);
-	}
-	else
-	{
-		while (i-- >= 0)
-			free(matrix[i]);
-		return (matrix);
-	}
-}
-
-char	**ft_split(const char *s, char c)
-{
-	int		word_c;
-	int		word_l;
 	int		i;
 	int		j;
-	char	**matrix;
+	int		arr_size;
+	int		w_count;
 
-	word_c = w_count(s, c);
-	matrix = malloc(sizeof(char *) * (word_c + 1));
-	if (!matrix || !s)
-		return (NULL);
-	i = -1;
+	i = 0;
 	j = 0;
-	word_l = 0;
-	while (++i < word_c)
+	arr_size = 0;
+	w_count = 0;
+	while (c_positions[i++] != -1)
+		arr_size++;
+	i = ft_strlen(s);
+	while (arr_size > 0)
 	{
-		j = w_start(s, c, j, word_l);
-		word_l = w_len(s, c, j);
-		if (s[0] == '\0')
-			return (matrix_errors(matrix, i, 1));
-		matrix[i] = ft_substr(s, j, word_l);
-		if (!matrix[i])
-			return (matrix_errors(matrix, i, 2));
+		j = c_positions[arr_size - 1];
+		if ((i - j) > 1)
+			w_count++;
+		i = j;
+		arr_size--;
 	}
-	matrix[i] = NULL;
-	return (matrix);
+	j = 0;
+	if ((i - j) > 1)
+		w_count++;
+	return (w_count);
 }
 
-/* int	main(void)
+int	*c_track(char const *s, char c)
 {
-	const char	s[] = "hola";
-	char		c = ' ';
-	char		**matrix = ft_split(s, c);
-	int			i = 0;
+ 	int		*c_positions;
+	int		i;
+	int		j;
 
-	while (matrix)
+	i = 0;
+	j = 0;
+	while (s[i] != '\0')
+		if (s[i++] == c)
+			j++;
+	c_positions = malloc(sizeof(int) * (j + 1));
+	c_positions[j] = -1;
+	i = 0;
+	j = 0;
+	while (s[i] != '\0')
 	{
-		printf("%s\n", matrix[i]);
+		if (s[i] == c)
+			c_positions[j++] = i;
 		i++;
 	}
-	return (0);
-} */
+	return (c_positions);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**s_arr;
+	int		*c_positions;
+	int		w_count;
+	int		arr_size;
+	int		i;
+	int		j;
+
+	arr_size = 0;
+	i = 0;
+	c_positions = c_track(s, c);
+	w_count = wcount(s, c_positions);
+	s_arr = malloc(sizeof(char *) * (w_count + 1));
+	while (c_positions[i++] != -1)
+		arr_size++;
+	s_arr[w_count] = malloc(sizeof(char) * 1);
+	s_arr[w_count] = "";
+	while (arr_size > 0)
+	{
+		i = c_positions[arr_size - 1];
+		j = c_positions[arr_size - 2];
+		if ((i - j) > 1)
+		{
+			s_arr[w_count - 1] = malloc(sizeof(char) * (i - j));
+			s_arr[w_count - 1] = ft_substr(s, j, (i - j - 1));
+			w_count--;
+			arr_size--;
+		}
+		else
+			arr_size--;
+	}
+	i = j;
+	j = 0;
+	if ((i - j) > 1)
+	{
+		s_arr[w_count - 1] = malloc(sizeof(char) * (i - j));
+		s_arr[w_count - 1] = ft_substr(s, j, (i - j - 1));
+	}
+	return (s_arr);
+}
+
+int	main()
+{
+	char	*a = "Hola me llamo juan";
+	char	b = ' ';
+	int		i;
+	char	**j;
+
+	i = 0;
+	j = ft_split(a, b);
+	while (j[i] != 0)
+		printf("%s\n", j[i++]);
+}
