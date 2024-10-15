@@ -82,39 +82,40 @@ char	**ft_split(char const *s, char c)
 		arr_size++;
 	s_arr[w_count] = malloc(sizeof(char) * 1);
 	s_arr[w_count] = "";
+	i = ft_strlen(s);
 	while (arr_size > 0)
 	{
-		i = c_positions[arr_size - 1];
-		j = c_positions[arr_size - 2];
+		j = c_positions[arr_size - 1];
 		if ((i - j) > 1)
 		{
 			s_arr[w_count - 1] = malloc(sizeof(char) * (i - j));
-			s_arr[w_count - 1] = ft_substr(s, j, (i - j - 1));
+			s_arr[w_count - 1] = ft_substr(s, j + 1, (i - j - 1));
 			w_count--;
 			arr_size--;
 		}
 		else
 			arr_size--;
+		i = j;
 	}
-	i = j;
 	j = 0;
 	if ((i - j) > 1)
 	{
 		s_arr[w_count - 1] = malloc(sizeof(char) * (i - j));
-		s_arr[w_count - 1] = ft_substr(s, j, (i - j - 1));
+		s_arr[w_count - 1] = ft_substr(s, j, (i - j));
 	}
 	return (s_arr);
 }
 
-int	main()
+/* int	main()
 {
-	char	*a = "Hola me llamo juan";
+	char	*a = " Hola  me  llamo  juan  alberto ";
 	char	b = ' ';
 	int		i;
 	char	**j;
 
 	i = 0;
 	j = ft_split(a, b);
-	while (j[i] != 0)
+	while (j[i][0] != '\0')
 		printf("%s\n", j[i++]);
-}
+	free(j);
+} */
