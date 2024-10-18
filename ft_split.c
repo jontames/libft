@@ -12,110 +12,137 @@
 
 #include "libft.h"
 
-int	wcount(char const *s, int *c_positions)
+/* char	**wr_words_palante(char const *s, char c, int words, char **s_splited)
 {
 	int		i;
 	int		j;
-	int		arr_size;
-	int		w_count;
+	int		k;
+	int		w_len;
 
 	i = 0;
 	j = 0;
-	arr_size = 0;
-	w_count = 0;
-	while (c_positions[i++] != -1)
-		arr_size++;
-	i = ft_strlen(s);
-	while (arr_size > 0)
+	while (s[i] != '\0' && j < words)
 	{
-		j = c_positions[arr_size - 1];
-		if ((i - j) > 1)
-			w_count++;
-		i = j;
-		arr_size--;
+		if (s[i] != c)
+		{
+			k = i;
+			w_len = 0;
+			while (s[k++] != c)
+				w_len++;
+			s_splited[j] = malloc(sizeof(char) * (w_len + 1));
+			if (!s_splited)
+				return(free_splited(s_splited, j));
+			k = 0;
+			while (s[i] != c)
+				s_splited[j][k++] = s[i++];
+			s_splited[j][i] = '\0';
+			j++;
+		}
+		else
+			i++;
 	}
-	j = 0;
-	if ((i - j) > 1)
-		w_count++;
-	return (w_count);
+	return (s_splited);
+} */
+
+char	**free_split(char **s_splited, int words)
+{
+	while (s_splited[words] != NULL)
+		free(s_splited[words++]);
+	free(s_splited);
+	return (s_splited);
 }
 
-int	*c_track(char const *s, char c)
+char	**wr_words(char const *s, char c, int words, char **s_splited)
 {
- 	int		*c_positions;
 	int		i;
-	int		j;
+	int		k;
+	int		w_len;
+
+	i = ft_strlen(s) - 1;
+	while (i >= 0 && words > 0)
+	{
+		if (s[i] != c)
+		{
+			k = i;
+			w_len = 0;
+			while (s[k--] != c && k >= 0)
+				w_len++;
+			s_splited[words - 1] = malloc(sizeof(char) * (w_len + 1));
+			if (!s_splited[words - 1])
+				return(free_split(s_splited, words - 1));
+			s_splited[words - 1][w_len] = '\0';
+			while (s[i] != c)
+				s_splited[words - 1][--w_len] = s[i--];
+			words--;
+		}
+		else
+			i--;
+	}
+	return (s_splited);
+}
+
+int	w_count(char const *s, char c)
+{
+	int		i;
+	int		words;
 
 	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-		if (s[i++] == c)
-			j++;
-	c_positions = malloc(sizeof(int) * (j + 1));
-	c_positions[j] = -1;
-	i = 0;
-	j = 0;
+	words = 0;
+	if (s[0] == '\0' || !s || s == NULL)
+		return (0);
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
-			c_positions[j++] = i;
-		i++;
+		while (s[i] == c)
+			i++;
+		if (s[i] != '\0')
+			words++;
+		while (s[i] != c)
+			i++;
+
+
+	/* 	if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
+			words++;
+		i++; */
 	}
-	return (c_positions);
+	printf("wc:%d\n", words);
+	// if (words == 0 && s[i - 1] != c)
+	// 	words = 1;
+	return (words);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**s_arr;
-	int		*c_positions;
-	int		w_count;
-	int		arr_size;
-	int		i;
-	int		j;
+	char	**s_splited;
+	int		words;
 
-	arr_size = 0;
-	i = 0;
-	c_positions = c_track(s, c);
-	w_count = wcount(s, c_positions);
-	s_arr = malloc(sizeof(char *) * (w_count + 1));
-	while (c_positions[i++] != -1)
-		arr_size++;
-	s_arr[w_count] = malloc(sizeof(char) * 1);
-	s_arr[w_count] = "";
-	i = ft_strlen(s);
-	while (arr_size > 0)
+	words = w_count(s, c);
+	printf("%d\n", words);
+	if (words == 0)
 	{
-		j = c_positions[arr_size - 1];
-		if ((i - j) > 1)
-		{
-			s_arr[w_count - 1] = malloc(sizeof(char) * (i - j));
-			s_arr[w_count - 1] = ft_substr(s, j + 1, (i - j - 1));
-			w_count--;
-			arr_size--;
-		}
-		else
-			arr_size--;
-		i = j;
+		s_splited = malloc(sizeof(char *) * 1);
+		s_splited[0] = NULL;
+		return (s_splited);
 	}
-	j = 0;
-	if ((i - j) > 1)
-	{
-		s_arr[w_count - 1] = malloc(sizeof(char) * (i - j));
-		s_arr[w_count - 1] = ft_substr(s, j, (i - j));
-	}
-	return (s_arr);
+	else
+		s_splited = malloc(sizeof(char *) * (words + 1));
+	s_splited[words] = NULL;
+	if (words == 1)
+		s_splited[0] = ft_strdup(s);
+	else
+		s_splited = wr_words(s, c, words, s_splited);
+	return (s_splited);
 }
 
-/* int	main()
+int	main()
 {
-	char	*a = " Hola  me  llamo  juan  alberto ";
+	char	*a = "Hola pepe";
 	char	b = ' ';
 	int		i;
 	char	**j;
 
 	i = 0;
 	j = ft_split(a, b);
-	while (j[i][0] != '\0')
+	while (j[i] != NULL)
 		printf("%s\n", j[i++]);
 	free(j);
-} */
+}
