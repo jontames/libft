@@ -12,44 +12,12 @@
 
 #include "libft.h"
 
-/* char	**wr_words_palante(char const *s, char c, int words, char **s_splited)
-{
-	int		i;
-	int		j;
-	int		k;
-	int		w_len;
-
-	i = 0;
-	j = 0;
-	while (s[i] != '\0' && j < words)
-	{
-		if (s[i] != c)
-		{
-			k = i;
-			w_len = 0;
-			while (s[k++] != c)
-				w_len++;
-			s_splited[j] = malloc(sizeof(char) * (w_len + 1));
-			if (!s_splited)
-				return(free_splited(s_splited, j));
-			k = 0;
-			while (s[i] != c)
-				s_splited[j][k++] = s[i++];
-			s_splited[j][i] = '\0';
-			j++;
-		}
-		else
-			i++;
-	}
-	return (s_splited);
-} */
-
 char	**free_split(char **s_splited, int words)
 {
 	while (s_splited[words] != NULL)
 		free(s_splited[words++]);
 	free(s_splited);
-	return (s_splited);
+	return (NULL);
 }
 
 char	**wr_words(char const *s, char c, int words, char **s_splited)
@@ -65,13 +33,13 @@ char	**wr_words(char const *s, char c, int words, char **s_splited)
 		{
 			k = i;
 			w_len = 0;
-			while (s[k--] != c && k >= 0)
+			while (s[k] != c && k-- >= 0)
 				w_len++;
 			s_splited[words - 1] = malloc(sizeof(char) * (w_len + 1));
 			if (!s_splited[words - 1])
 				return(free_split(s_splited, words - 1));
 			s_splited[words - 1][w_len] = '\0';
-			while (s[i] != c)
+			while (s[i] != c && i >= 0)
 				s_splited[words - 1][--w_len] = s[i--];
 			words--;
 		}
@@ -96,17 +64,9 @@ int	w_count(char const *s, char c)
 			i++;
 		if (s[i] != '\0')
 			words++;
-		while (s[i] != c)
+		while (s[i] != c && s[i] != '\0')
 			i++;
-
-
-	/* 	if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-			words++;
-		i++; */
 	}
-	printf("wc:%d\n", words);
-	// if (words == 0 && s[i - 1] != c)
-	// 	words = 1;
 	return (words);
 }
 
@@ -116,7 +76,6 @@ char	**ft_split(char const *s, char c)
 	int		words;
 
 	words = w_count(s, c);
-	printf("%d\n", words);
 	if (words == 0)
 	{
 		s_splited = malloc(sizeof(char *) * 1);
@@ -126,23 +85,22 @@ char	**ft_split(char const *s, char c)
 	else
 		s_splited = malloc(sizeof(char *) * (words + 1));
 	s_splited[words] = NULL;
-	if (words == 1)
-		s_splited[0] = ft_strdup(s);
-	else
-		s_splited = wr_words(s, c, words, s_splited);
+	s_splited = wr_words(s, c, words, s_splited);
 	return (s_splited);
 }
 
-int	main()
+/* int	main()
 {
-	char	*a = "Hola pepe";
+	char	*a = strdup("Tripouille");
 	char	b = ' ';
-	int		i;
+	int		i; 
 	char	**j;
 
-	i = 0;
+  	i = 0;
 	j = ft_split(a, b);
-	while (j[i] != NULL)
+	printf("%s\n", j[0]);
+	printf("%p\n", j[1]);
+  	while (j[i] != NULL)
 		printf("%s\n", j[i++]);
 	free(j);
-}
+} */

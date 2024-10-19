@@ -29,9 +29,10 @@ char	*ft_strrchr(const char *s, int c)
 
 /* int main()
 {
-	char    a[] = "Hola alba";
+	char s[] = "tripouille";
 
-	printf("%p\n", ft_strrchr(a, '\0'));
-	printf("%p\n", strrchr(a, '\0'));
-	printf("%c\n", a[8]);
+	printf("%p\n", ft_strrchr(s, '\0'));
+	printf("%p\n", &s[10]);
+	printf("%p\n", strrchr(s, '\0'));
+	printf("%c\n", s[8]);
 } */

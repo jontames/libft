@@ -31,13 +31,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 			new_s[i] = s2[j++];
 		i++;
 	}
+	new_s[i] = '\0';
 	return (new_s);
 }
 
 /* int main()
 {
-	char    a[] = "Hola ";
-	char    b[] = "amigo";
+	char    a[] = "tripouille";
+	char    b[] = "42";
 
 	printf("%p\n", ft_strjoin(a, b));
 	printf("%s\n", ft_strjoin(a, b));
