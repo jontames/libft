@@ -37,7 +37,7 @@ char	**wr_words(char const *s, char c, int words, char **s_splited)
 				w_len++;
 			s_splited[words - 1] = malloc(sizeof(char) * (w_len + 1));
 			if (!s_splited[words - 1])
-				return(free_split(s_splited, words - 1));
+				return (free_split(s_splited, words - 1));
 			s_splited[words - 1][w_len] = '\0';
 			while (s[i] != c && i >= 0)
 				s_splited[words - 1][--w_len] = s[i--];
