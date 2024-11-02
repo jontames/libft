@@ -44,7 +44,7 @@ int	ft_trim(char const *s1, char const *set, int way)
 
 	if (way == 1)
 		i = 0;
-	else if (way == -1)
+	else
 		i = ft_strlen(s1) - 1;
 	return (ft_trim2(s1, set, i, way));
 }
@@ -55,6 +55,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		end;
 	char	*trim_s;
 
+	if (!s1 || !set)
+		return (NULL);
 	start = ft_trim(s1, set, 1);
 	end = ft_trim(s1, set, -1);
 	if (start == 0 && end == 0)

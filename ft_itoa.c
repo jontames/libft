@@ -95,5 +95,5 @@ char	*ft_itoa(int n)
 
 /* int	main(void)
 {
-	printf("%s\n", ft_itoa(0));
+	printf("%s\n", ft_itoa(NULL));
 } */

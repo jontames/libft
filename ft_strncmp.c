@@ -16,11 +16,13 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t		i;
 
+	if (s1 == NULL || s2 == NULL)
+		return (0);
 	i = 0;
 	while ((*s1 || *s2) && (i < n))
 	{
 		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
 	return (0);
@@ -28,11 +30,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 /* int main()
 {
-	char    a[] = "ABCD";
+ 	char    a[] = "ABCD";
 	char    b[] = "ABCj";
 	char    c[] = "ABCD";
 	char    d[] = "ABCj";
 
-	printf("%d\n", ft_strncmp(a, b, 4));
-	printf("%d\n", strncmp(c, d, 4));
+	printf("%d\n", ft_strncmp(NULL, "HOLA", 0));
+	printf("%d\n", strncmp(NULL, "HOLA", 0));
+	printf("---------\n");
+	printf("%d\n", ft_strncmp("HOLA", NULL, 0));
+	printf("%d\n", strncmp("HOLA", NULL, 0));
+	printf("---------\n");
+	printf("%d\n", ft_strncmp(NULL, NULL, 0));
+	printf("%d\n", strncmp(NULL, NULL, 0));
 } */

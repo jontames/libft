@@ -22,7 +22,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (nmemb == SIZE_MAX || size == SIZE_MAX
 		|| (nmemb >= 4294967296 && size >= 4294967296))
 		return (NULL);
-	ptr = malloc(total_size);
+	ptr = malloc((size_t)total_size);
 	if (ptr == NULL)
 		return (NULL);
 	ft_memset(ptr, 0, total_size);
@@ -33,8 +33,8 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*a;
 
-	a = ft_calloc(3, -5);
+	a = ft_calloc(3, NULL);
 	printf("%p\n", a);
 
 	free(a);
-} */
+}  */

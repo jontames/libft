@@ -27,19 +27,19 @@ char	**wr_words(char const *s, char c, int words, char **s_splited)
 	int		w_len;
 
 	i = ft_strlen(s) - 1;
-	while (i >= 0 && words > 0)
+	while (i != 0 && words > 0)
 	{
 		if (s[i] != c)
 		{
 			k = i;
 			w_len = 0;
-			while (s[k] != c && k-- >= 0)
+			while (k != -1 && s[k--] != c)
 				w_len++;
 			s_splited[words - 1] = malloc(sizeof(char) * (w_len + 1));
 			if (!s_splited[words - 1])
 				return (free_split(s_splited, words - 1));
 			s_splited[words - 1][w_len] = '\0';
-			while (s[i] != c && i >= 0)
+			while (i != -1 && s[i] != c)
 				s_splited[words - 1][--w_len] = s[i--];
 			words--;
 		}
@@ -56,7 +56,7 @@ int	w_count(char const *s, char c)
 
 	i = 0;
 	words = 0;
-	if (s[0] == '\0' || !s || s == NULL)
+	if (!s || s[0] == '\0')
 		return (0);
 	while (s[i] != '\0')
 	{
@@ -75,15 +75,21 @@ char	**ft_split(char const *s, char c)
 	char	**s_splited;
 	int		words;
 
+	if (s == NULL)
+		return (NULL);
 	words = w_count(s, c);
 	if (words == 0)
 	{
 		s_splited = malloc(sizeof(char *) * 1);
+		if (!s_splited)
+			return (free(s_splited), NULL);
 		s_splited[0] = NULL;
 		return (s_splited);
 	}
 	else
 		s_splited = malloc(sizeof(char *) * (words + 1));
+	if (!s_splited)
+		return (free(s_splited), NULL);
 	s_splited[words] = NULL;
 	s_splited = wr_words(s, c, words, s_splited);
 	return (s_splited);
@@ -91,16 +97,17 @@ char	**ft_split(char const *s, char c)
 
 /* int	main()
 {
-	char	*a = strdup("Tripouille");
-	char	b = ' ';
+	char	*a = "tripouille";
+	char	b = 0;
 	int		i; 
 	char	**j;
 
   	i = 0;
 	j = ft_split(a, b);
-	printf("%s\n", j[0]);
-	printf("%p\n", j[1]);
   	while (j[i] != NULL)
 		printf("%s\n", j[i++]);
+	i = 0;
+	while (j[i] != NULL)
+		free(j[i++]);
 	free(j);
 } */
